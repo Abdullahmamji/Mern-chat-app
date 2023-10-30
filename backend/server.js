@@ -10,7 +10,6 @@ const path = require("path");
 dotenv.config();
 connectDB();
 const app = express();
-const NODE_ENV = "production"
 
 app.use(express.json()); // to accept json data
 app.use("/api/user", userRoutes);
@@ -21,17 +20,17 @@ app.use("/api/message", messageRoutes);
 
 const __dirname1 = path.resolve();
 
-// if (NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname1, "/frontend/build")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
-//   app.get("*", (req, res) =>
-//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
-//   );
-// } else {
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
+  );
+} else {
   app.get("/", (req, res) => {
     res.send("API is running..");
   });
-// }
+}
 
 // --------------------------deployment------------------------------
 
@@ -39,7 +38,7 @@ const __dirname1 = path.resolve();
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = 5001 || process.env.PORT;
+const PORT =  process.env.PORT || 5001;
 
 const server = app.listen(
   PORT || 5001,
@@ -59,7 +58,7 @@ io.on("connection", (socket) => {
   console.log("Connected to socket.io");
   socket.on("setup", (userData) => {
     socket.join(userData._id);
-    socket.emit("connected");exit
+    socket.emit("connected");
   });
 
   socket.on("join chat", (room) => {
