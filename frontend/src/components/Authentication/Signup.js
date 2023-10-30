@@ -102,15 +102,15 @@ const Signup = () => {
       data.append("File", pics);
       data.append("upload_preset", "Mern_chatApp");
       data.append("cloud_name", "jimmycoder");
-      console.log(data)
       fetch("https://api.cloudinary.com/v1_1/jimmycoder/image/upload", {
         method: "post",
         body: data,
       })
-        .then((res) => res.json())
+      .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
-          console.log(data.url.toString());
+          // console.log(data.url.toString());
+          console.log(data.url.toString(),"cassssssssssssssss")
           setPicLoading(false);
         })
         .catch((err) => {
