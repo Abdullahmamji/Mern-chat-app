@@ -3,7 +3,8 @@ const colors = require("colors");
 const env = require("dotenv");
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect(process.env.MONGO_URI ||
+      "mongodb+srv://abdulmamji3:jimmy007@mernchatapp.vkrx0et.mongodb.net/MernChatApp", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
