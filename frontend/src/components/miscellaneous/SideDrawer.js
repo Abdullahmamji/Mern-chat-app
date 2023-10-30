@@ -70,7 +70,6 @@ function SideDrawer() {
 
     try {
       setLoading(true);
-
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -78,7 +77,7 @@ function SideDrawer() {
       };
 
       const { data } = await axios.get(`/api/user?search=${search}`, config);
-
+      
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -141,8 +140,8 @@ function SideDrawer() {
             </Text>
           </Button>
         </Tooltip>
-        <Text fontSize="2xl" fontFamily="Work sans">
-          Talk-A-Tive
+        <Text fontSize="2xl" fontWeight="bold" fontFamily="Work sans">
+        Jimmy's Chat App
         </Text>
         <div>
           <Menu>

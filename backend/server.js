@@ -10,13 +10,9 @@ const path = require("path");
 dotenv.config();
 connectDB();
 const app = express();
+const NODE_ENV = "production"
 
 app.use(express.json()); // to accept json data
-
-// app.get("/", (req, res) => {
-//   res.send("API Running!");
-// });
-
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
@@ -25,7 +21,7 @@ app.use("/api/message", messageRoutes);
 
 const __dirname1 = path.resolve();
 
-if (process.env.NODE_ENV === "production") {
+if (NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
   app.get("*", (req, res) =>
@@ -43,10 +39,10 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT;
+const PORT = 5001 || process.env.PORT;
 
 const server = app.listen(
-  PORT,
+  PORT || 5001,
   console.log(`Server running on PORT ${PORT}...`.yellow.bold)
 );
 
@@ -56,6 +52,7 @@ const io = require("socket.io")(server, {
     origin: "http://localhost:3000",
     // credentials: true,
   },
+  transports: ['polling'], 
 });
 
 io.on("connection", (socket) => {

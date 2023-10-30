@@ -42,6 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     pic,
+    
   });
 
   if (user) {
@@ -53,6 +54,7 @@ const registerUser = asyncHandler(async (req, res) => {
       pic: user.pic,
       token: generateToken(user._id),
     });
+    console.log(user.pic)
   } else {
     res.status(400);
     throw new Error("User not found");
@@ -64,10 +66,11 @@ const registerUser = asyncHandler(async (req, res) => {
 //@access          Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
+console.log(req.body)
   const user = await User.findOne({ email });
-
+console.log(user)
   if (user && (await user.matchPassword(password))) {
+    console.log("here")
     res.json({
       _id: user._id,
       name: user.name,
