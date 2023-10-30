@@ -21,17 +21,17 @@ app.use("/api/message", messageRoutes);
 
 const __dirname1 = path.resolve();
 
-if (NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "/frontend/build")));
+// if (NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
-  );
-} else {
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
+//   );
+// } else {
   app.get("/", (req, res) => {
     res.send("API is running..");
   });
-}
+// }
 
 // --------------------------deployment------------------------------
 
@@ -49,7 +49,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     // credentials: true,
   },
   transports: ['polling'], 
