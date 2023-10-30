@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const colors = require("colors");
-
+// const env = require("dotenv");
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect("mongodb+srv://abdulmamji3:jimmy007@mernchatapp.vkrx0et.mongodb.net/", {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -16,4 +16,12 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+
+
+
+
+
+
+
+
 
